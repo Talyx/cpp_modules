@@ -1,0 +1,43 @@
+SRCS			= 	main.cpp \
+					Animal.cpp\
+					Cat.cpp \
+					Dog.cpp \
+					WrongAnimal.cpp\
+					WrongCat.cpp \
+					Brain.cpp \
+
+
+INCLUDES 		=	./
+
+HEADERS			=	Animal.hpp\
+					Cat.hpp		\
+					Dog.hpp		\
+					WrongAnimal.hpp\
+					WrongCat.hpp \
+					Brain.hpp	\
+
+OBJS			= $(SRCS:.cpp=.o)
+
+CXX				= clang++
+RM				= rm -f
+CXXFLAGS		= -Wall -Wextra -Werror -std=c++98 -I -g
+
+NAME			= animal
+
+all:			$(NAME)
+
+$(OBJS): %.o: %.cpp $(HEADERS) Makefile
+	$(CXX) $(CXXFLAGS) -c $< -I $(INCLUDES) -o $@
+
+$(NAME): $(OBJS) $(HEADERS)
+	$(CXX) $(CXXFLAGS) $(OBJS)  -o $(NAME)
+
+clean:
+	$(RM) $(OBJS)
+
+fclean:			clean
+	$(RM) $(NAME)
+
+re:	fclean $(NAME)
+
+.PHONY:			all clean fclean re test
